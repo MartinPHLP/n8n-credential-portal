@@ -2,8 +2,13 @@
 
 import { UseFormRegister } from "react-hook-form";
 
+interface AnthropicFormData {
+  name: string;
+  apiKey: string;
+}
+
 interface AnthropicFormProps {
-  register: UseFormRegister<any>;
+  register: UseFormRegister<AnthropicFormData>;
 }
 
 export default function AnthropicForm({ register }: AnthropicFormProps) {

@@ -21,6 +21,7 @@ export async function POST(request: Request) {
     const result = await response.json();
     return NextResponse.json(result);
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to create credential" },
       { status: 500 }

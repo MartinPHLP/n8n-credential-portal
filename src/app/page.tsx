@@ -1,13 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { providers, Provider } from "@/lib/providers";
 import Image from "next/image";
 import { Toast } from "@/components/ui/Toast";
 import { useSearchParams } from "next/navigation";
 
-export default function Home() {
+// Add this type for the form data
+type CredentialFormData = Record<string, string>;
+
+function HomeContent() {
   const searchParams = useSearchParams();
 
   const [selectedProvider, setSelectedProvider] = useState<Provider | null>(
@@ -35,7 +38,7 @@ export default function Home() {
     }
   }, [searchParams]);
 
-  const onSubmit = async (formData: any) => {
+  const onSubmit = async (formData: CredentialFormData) => {
     try {
       if (!selectedProvider) return;
 
@@ -57,7 +60,8 @@ export default function Home() {
       });
       reset();
       setSelectedProvider(null);
-    } catch (err) {
+    } catch (error: unknown) {
+      console.error(error);
       setToast({ message: "Failed to create credential", type: "error" });
     }
   };
@@ -160,5 +164,13 @@ export default function Home() {
         />
       )}
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }

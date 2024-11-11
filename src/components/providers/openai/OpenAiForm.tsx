@@ -2,8 +2,14 @@
 
 import { UseFormRegister } from "react-hook-form";
 
+interface OpenAiFormData {
+  name: string;
+  apiKey: string;
+  organizationId: string;
+}
+
 interface OpenAiFormProps {
-  register: UseFormRegister<any>;
+  register: UseFormRegister<OpenAiFormData>;
 }
 
 export default function OpenAiForm({ register }: OpenAiFormProps) {

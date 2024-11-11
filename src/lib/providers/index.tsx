@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ImapForm from "@/components/providers/imap/ImapForm";
 import GmailForm from "@/components/providers/gmail/GmailForm";
 import OpenAiForm from "@/components/providers/openai/OpenAiForm";

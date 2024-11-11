@@ -2,8 +2,18 @@
 
 import { UseFormRegister } from "react-hook-form";
 
+interface ImapFormData {
+  name: string;
+  user: string;
+  password: string;
+  host: string;
+  port: number;
+  secure: boolean;
+  allowUnauthorizedCerts: boolean;
+}
+
 interface ImapFormProps {
-  register: UseFormRegister<any>;
+  register: UseFormRegister<ImapFormData>;
 }
 
 export default function ImapForm({ register }: ImapFormProps) {

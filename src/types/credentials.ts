@@ -1,7 +1,35 @@
+type CredentialData =
+  | {
+      user: string;
+      password: string;
+      host: string;
+      port: number;
+      secure: boolean;
+      allowUnauthorizedCerts: boolean;
+    }
+  | {
+      clientId: string;
+      clientSecret: string;
+      oauthTokenData: {
+        access_token: string;
+        refresh_token: string;
+        scope: string;
+        token_type: string;
+        expiry_date: number;
+      };
+    }
+  | {
+      apiKey: string;
+      organizationId: string;
+    }
+  | {
+      apiKey: string;
+    };
+
 export interface BaseCredential {
   name: string;
   type: string;
-  data: Record<string, any>;
+  data: CredentialData;
 }
 
 export interface ImapCredential extends BaseCredential {

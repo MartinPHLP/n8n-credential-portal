@@ -3,17 +3,23 @@
 import { useCallback } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { GOOGLE_OAUTH_CONFIG } from "@/lib/google-auth";
+import Image from "next/image";
 
-interface GmailFormProps {
-  register: UseFormRegister<any>;
-  onOAuthComplete: (data: any) => void;
+interface GmailFormData {
+  name: string;
+  code?: string;
 }
 
-export default function GmailForm({
-  register,
-  onOAuthComplete,
-}: GmailFormProps) {
+interface GmailFormProps {
+  register: UseFormRegister<GmailFormData>;
+  onOAuthComplete?: (data: { code: string }) => void;
+}
+
+export default function GmailForm({ register }: GmailFormProps) {
   const handleGoogleLogin = useCallback(() => {
+    // Store the callback function reference in sessionStorage
+    sessionStorage.setItem("oauthCallback", "true");
+
     // Store the form name in a cookie
     const formName =
       document.querySelector<HTMLInputElement>('input[name="name"]')?.value;
@@ -64,15 +70,21 @@ export default function GmailForm({
           onClick={handleGoogleLogin}
           className="flex items-center px-6 py-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-all"
         >
-          <img src="/icons/google.png" alt="Google" className="w-6 h-6 mr-3" />
+          <Image
+            src="/icons/google.png"
+            alt="Google"
+            width={24}
+            height={24}
+            className="mr-3"
+          />
           <span className="text-gray-700 font-medium">
             Continue with Google
           </span>
         </button>
 
         <p className="mt-4 text-sm text-tertiary/70 text-center max-w-sm">
-          Click the button above to securely connect your Gmail account. You'll
-          be redirected to Google's login page.
+          Click the button above to securely connect your Gmail account.
+          You&apos;ll be redirected to Google&apos;s login page.
         </p>
       </div>
     </>
