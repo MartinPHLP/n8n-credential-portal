@@ -71,7 +71,7 @@ export default function GmailForm({ register }: GmailFormProps) {
           className="flex items-center px-6 py-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-all"
         >
           <Image
-            src="/icons/google.png"
+            src="/icons/google.svg"
             alt="Google"
             width={24}
             height={24}
