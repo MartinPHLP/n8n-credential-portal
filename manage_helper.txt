@@ -1,0 +1,20 @@
+# 🚀 Premier déploiement
+git clone votre-repo.git && cd votre-repo
+npm install
+npm run build
+pm2 start npm --name "credentials-app" -- start
+
+# 🛑 Arrêter l'app
+pm2 stop credentials-app     # Arrêt temporaire
+pm2 delete credentials-app   # Arrêt complet
+
+# 🔄 Faire des modifications
+git pull                # Récupérer les changements
+npm install            # Si nouvelles dépendances
+npm run build          # Rebuild
+pm2 restart credentials-app   # Redémarrer
+
+# 📊 Monitoring
+pm2 logs credentials-app     # Voir les logs
+pm2 status            # Voir l'état
+pm2 monit            # Monitor détaillé

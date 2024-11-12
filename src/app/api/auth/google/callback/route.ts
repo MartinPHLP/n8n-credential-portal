@@ -4,14 +4,14 @@ import { GOOGLE_OAUTH_CONFIG } from "@/lib/google-auth";
 import { cookies } from "next/headers";
 
 export async function GET(request: Request) {
-  const { origin } = new URL(request.url);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
   const { searchParams } = new URL(request.url);
   const code = searchParams.get("code");
   const state = searchParams.get("state");
 
   if (!code || !state) {
     return NextResponse.redirect(
-      `${origin}/error?message=Invalid OAuth response`
+      `${baseUrl}/error?message=Invalid OAuth response`
     );
   }
 
@@ -74,7 +74,7 @@ export async function GET(request: Request) {
     }
 
     // Créer la réponse avec redirection
-    const response = NextResponse.redirect(`${origin}/?success=true`);
+    const response = NextResponse.redirect(`${baseUrl}/?success=true`);
 
     // Clear the credential name cookie
     response.cookies.set("credentialName", "", {
@@ -86,7 +86,7 @@ export async function GET(request: Request) {
   } catch (error) {
     console.error("OAuth error:", error);
     return NextResponse.redirect(
-      `${origin}/error?message=Failed to exchange OAuth tokens`
+      `${baseUrl}/error?message=Failed to exchange OAuth tokens`
     );
   }
 }
